@@ -20,6 +20,11 @@ export async function updateListItem(id) {
     return response.data;
 }
 
+export async function deleteAll(id) {
+    const response = await client.from('groceries').delete('*').match({ user_id: id });
+    return response.data;
+}
+
 export function getUser() {
     return client.auth.user();
 }

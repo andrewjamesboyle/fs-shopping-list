@@ -1,13 +1,13 @@
 // importing other stuff, utility functions for:
 // working with supabase:
-import { checkAuth, signOutUser, createListItem, getGroceries, updateListItem } from './fetch-utils.js';
+import { checkAuth, signOutUser, createListItem, getGroceries, updateListItem, deleteAll } from './fetch-utils.js';
 import { renderGrocery } from './render-utils.js';
 // pure rendering (data --> DOM):
 
 /*  "boiler plate" auth code */
 // checking if we have a user! (will redirect to auth if not):
 // can optionally return the user:
-checkAuth();
+const user = checkAuth();
 
 // sign out link:
 const signOutLink = document.getElementById('sign-out-link');
@@ -65,4 +65,9 @@ async function loadData() {
 
 loadData();
 
-// events:
+const deleteButton = document.getElementById('delete-all');
+deleteButton.addEventListener('click', async () => {
+    await deleteAll(user.id);
+    await getGroceries();
+    await displayList();
+});
