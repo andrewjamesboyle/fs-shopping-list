@@ -5,6 +5,13 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
 
+export async function createListItem(grocery) {
+    const response = await client.from('groceries').insert(grocery).single();
+    console.log(response);
+    return response;
+
+}
+
 export function getUser() {
     return client.auth.user();
 }
