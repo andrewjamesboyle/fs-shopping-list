@@ -5,5 +5,9 @@ export function renderGrocery(grocery) {
     itemInfo.textContent = `${grocery.quantity} ${grocery.item}`;
     listItem.append(itemInfo);
 
+    if (grocery.bought) {
+        listItem.classList.add('bought');
+    }
+
     return listItem;
 }

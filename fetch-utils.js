@@ -11,8 +11,12 @@ export async function createListItem(grocery) {
 }
 
 export async function getGroceries() {
-    const response = await client.from('groceries').select('*');
-    console.log(response.data);
+    const response = await client.from('groceries').select('*').order('id');
+    return response.data;
+}
+
+export async function updateListItem(id) {
+    const response = await client.from('groceries').update({ bought: true }).match({ id: id });
     return response.data;
 }
 
