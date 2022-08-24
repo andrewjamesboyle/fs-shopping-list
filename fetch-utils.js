@@ -7,9 +7,13 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function createListItem(grocery) {
     const response = await client.from('groceries').insert(grocery).single();
-    console.log(response);
     return response;
+}
 
+export async function getGroceries() {
+    const response = await client.from('groceries').select('*');
+    console.log(response.data);
+    return response.data;
 }
 
 export function getUser() {

@@ -1,6 +1,7 @@
 // importing other stuff, utility functions for:
 // working with supabase:
-import { checkAuth, signOutUser, createListItem } from './fetch-utils.js';
+import { checkAuth, signOutUser, createListItem, getGroceries } from './fetch-utils.js';
+import { renderGrocery } from './render-utils.js';
 // pure rendering (data --> DOM):
 
 /*  "boiler plate" auth code */
@@ -16,9 +17,10 @@ signOutLink.addEventListener('click', signOutUser);
 
 // grab needed DOM elements on page:
 const formEl = document.getElementById('form');
+const listEl = document.getElementById('list-container');
 
 // local state:
-let groceryList = [];
+let groceries = [];
 
 
 formEl.addEventListener('submit', async (e) => {
@@ -35,9 +37,21 @@ formEl.addEventListener('submit', async (e) => {
 
     formEl.reset();
 
-    displayList();
+    await displayList();
 
 });
+
 // display functions:
+async function displayList() {
+    listEl.innerHTML = '';
+
+    groceries = await getGroceries();
+
+    for (let grocery of groceries) {
+        const list = await renderGrocery(grocery);
+        console.log(list);
+        listEl.append(list);
+    }}
+
 
 // events:
