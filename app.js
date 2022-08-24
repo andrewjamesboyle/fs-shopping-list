@@ -47,15 +47,8 @@ async function displayList() {
     groceries = await getGroceries();
 
     for (let grocery of groceries) {
-        const list = await renderGrocery(grocery);
+        const list = renderGrocery(grocery, handleBought);
         listEl.append(list);
-
-
-        list.addEventListener('click', async () => {
-            await updateListItem(grocery.id);
-        
-            await displayList();
-        });
     }
 }
 
@@ -71,3 +64,8 @@ deleteButton.addEventListener('click', async () => {
     await getGroceries();
     await displayList();
 });
+
+async function handleBought(grocery) {
+    await updateListItem(grocery.id);
+    await displayList();
+}
