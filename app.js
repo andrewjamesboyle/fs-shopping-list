@@ -53,5 +53,10 @@ async function displayList() {
         listEl.append(list);
     }}
 
+async function loadData() {
+    await displayList();
+}
+
+loadData();
 
 // events:
